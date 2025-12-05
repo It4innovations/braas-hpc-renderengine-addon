@@ -20,45 +20,51 @@ import bpy
 
 ADDON_NAME = 'braas_hpc_renderengine'
 
-#######################BRaaSHPCPreferences#########################################
+#######################BRaaSHPCRenderEnginePreferences#########################################
 
-# class BRaaSHPCPreferences(bpy.types.AddonPreferences):
-#     bl_idname = ADDON_NAME
+class BRaaSHPCRenderEnginePreferences(bpy.types.AddonPreferences):
+    bl_idname = ADDON_NAME
 
-#     # braas_hpc_renderengine_port: bpy.props.IntProperty(
-#     #     name="Port",
-#     #     min=0,
-#     #     max=65565,
-#     #     default=7000
-#     # ) # type: ignore
+    # braas_hpc_renderengine_port: bpy.props.IntProperty(
+    #     name="Port",
+    #     min=0,
+    #     max=65565,
+    #     default=7000
+    # ) # type: ignore
 
-#     # braas_hpc_renderengine_server_name: bpy.props.StringProperty(
-#     #     name="Server",
-#     #     default="localhost"
-#     # ) # type: ignore
+    # braas_hpc_renderengine_server_name: bpy.props.StringProperty(
+    #     name="Server",
+    #     default="localhost"
+    # ) # type: ignore
 
-#     def draw(self, context):
-#         layout = self.layout
+    braas_hpc_renderengine_use_gpujpeg: bpy.props.BoolProperty(
+        name="Use GPUJPEG",
+        default=False
+    ) # type: ignore    
 
-#         #box = layout.box()
-#         # box.label(text='TCP Server:')
-#         # col = box.column()
-#         # col.prop(self, "braas_hpc_renderengine_server_name", text="Server")
-#         # col.prop(self, "braas_hpc_renderengine_port", text="Port")
+    def draw(self, context):
+        layout = self.layout
 
-# def ctx_preferences():
-#     try:
-#         return bpy.context.preferences
-#     except AttributeError:
-#         return bpy.context.user_preferences
+        box = layout #.box()
+        # box.label(text='TCP Server:')
+        #col = box.column()
+        box.prop(self, "braas_hpc_renderengine_use_gpujpeg", text="Use GPUJPEG")
+        # col.prop(self, "braas_hpc_renderengine_server_name", text="Server")
+        # col.prop(self, "braas_hpc_renderengine_port", text="Port")
 
-# def preferences() -> BRaaSHPCPreferences:
-#     return ctx_preferences().addons[ADDON_NAME].preferences
+def ctx_preferences():
+    try:
+        return bpy.context.preferences
+    except AttributeError:
+        return bpy.context.user_preferences
+
+def preferences() -> BRaaSHPCRenderEnginePreferences:
+    return ctx_preferences().addons[ADDON_NAME].preferences
 
 def register():
-    #bpy.utils.register_class(BRaaSHPCPreferences)
+    bpy.utils.register_class(BRaaSHPCRenderEnginePreferences)
     pass
 
 def unregister():
-    #bpy.utils.unregister_class(BRaaSHPCPreferences)
+    bpy.utils.unregister_class(BRaaSHPCRenderEnginePreferences)
     pass

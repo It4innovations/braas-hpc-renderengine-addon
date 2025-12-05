@@ -167,6 +167,9 @@ class BRaaSHPCContext:
               self.height, self.step_samples)
 
     def client_init(self):
+        braas_hpc_renderengine_dll.enable_gpujpeg(braas_hpc_renderengine_pref.preferences().braas_hpc_renderengine_use_gpujpeg)
+        braas_hpc_renderengine_dll.set_pixsize(16) # 16 for half-float RGBA
+
         braas_hpc_renderengine_dll.client_init(self.server.encode(), self.port, #_cam, self.port_data,
                                       self.width, self.height) #, self.step_samples, self.filename.encode()
 
