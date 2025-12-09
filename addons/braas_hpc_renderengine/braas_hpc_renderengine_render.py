@@ -37,7 +37,11 @@ from dataclasses import dataclass
 from mathutils import Matrix
 
 from . import braas_hpc_renderengine_pref
-import braas_hpc_renderengine_dll
+
+try:
+    from . import braas_hpc_renderengine_dll
+except:
+    import braas_hpc_renderengine_dll
 
 #####################################################################################################################
 

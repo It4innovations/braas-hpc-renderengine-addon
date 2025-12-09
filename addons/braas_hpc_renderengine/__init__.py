@@ -19,8 +19,8 @@ bl_info = {
     "name": "BRaaS-HPC-RenderEngine",
     "author": "Milan Jaros, Petr Strakos, Lubomir Riha",
     "description": "",
-    "blender": (4, 0, 0),
-    "version": (0, 0, 1),
+    "blender": (4, 5, 0),
+    "version": (4, 5, 5),
     "location": "",
     "warning": "",
     "category": "Render"
