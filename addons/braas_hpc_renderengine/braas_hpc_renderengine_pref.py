@@ -21,6 +21,11 @@ import bpy
 ADDON_NAME = 'braas_hpc_renderengine'
 
 #######################BRaaSHPCRenderEnginePreferences#########################################
+pixsize_items = [
+    ("8", "8 (RGBA - BYTE)", ""),
+    ("16", "16 (RGBA - HALF)", ""),
+    ("32", "32 (RGBA - FLOAT)", ""),
+]
 
 class BRaaSHPCRenderEnginePreferences(bpy.types.AddonPreferences):
     bl_idname = ADDON_NAME
@@ -37,6 +42,12 @@ class BRaaSHPCRenderEnginePreferences(bpy.types.AddonPreferences):
     #     default="localhost"
     # ) # type: ignore
 
+    braas_hpc_renderengine_pixsize: bpy.props.EnumProperty(
+        name="Pixel Size",
+        items=pixsize_items,
+        default="8"
+    ) # type: ignore
+
     braas_hpc_renderengine_use_gpujpeg: bpy.props.BoolProperty(
         name="Use GPUJPEG",
         default=False
@@ -45,10 +56,11 @@ class BRaaSHPCRenderEnginePreferences(bpy.types.AddonPreferences):
     def draw(self, context):
         layout = self.layout
 
-        box = layout #.box()
+        box = layout.box()
         # box.label(text='TCP Server:')
-        #col = box.column()
-        box.prop(self, "braas_hpc_renderengine_use_gpujpeg", text="Use GPUJPEG")
+        col = box.column()
+        col.prop(self, "braas_hpc_renderengine_use_gpujpeg", text="Use GPUJPEG")
+        col.prop(self, "braas_hpc_renderengine_pixsize", text="Pixel Size")
         # col.prop(self, "braas_hpc_renderengine_server_name", text="Server")
         # col.prop(self, "braas_hpc_renderengine_port", text="Port")
 

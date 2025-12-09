@@ -167,8 +167,10 @@ class BRaaSHPCContext:
               self.height, self.step_samples)
 
     def client_init(self):
-        braas_hpc_renderengine_dll.enable_gpujpeg(braas_hpc_renderengine_pref.preferences().braas_hpc_renderengine_use_gpujpeg)
-        braas_hpc_renderengine_dll.set_pixsize(16) # 16 for half-float RGBA
+        use_gpujpeg = 1 if braas_hpc_renderengine_pref.preferences().braas_hpc_renderengine_use_gpujpeg else 0
+        braas_hpc_renderengine_dll.enable_gpujpeg(use_gpujpeg)
+        pixsize = int(braas_hpc_renderengine_pref.preferences().braas_hpc_renderengine_pixsize)
+        braas_hpc_renderengine_dll.set_pixsize(pixsize) # e.g. 16 for half-float RGBA
 
         braas_hpc_renderengine_dll.client_init(self.server.encode(), self.port, #_cam, self.port_data,
                                       self.width, self.height) #, self.step_samples, self.filename.encode()
@@ -734,7 +736,7 @@ class ViewportEngine(Engine):
 
                 # preparations to start rendering
                 #iteration = 0
-                time_begin = 0.0
+                # time_begin = time.perf_counter()
                 # if is_adaptive:
                 #     all_pixels = active_pixels = self.braas_hpc_renderengine_context.width * self.braas_hpc_renderengine_context.height
                 # is_last_iteration = False
