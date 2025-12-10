@@ -1,4 +1,4 @@
-# BRaaS-HPC RenderEngine
+# BRaaS-HPC RenderEngine - Blender addon
 
 ## Overview
 
