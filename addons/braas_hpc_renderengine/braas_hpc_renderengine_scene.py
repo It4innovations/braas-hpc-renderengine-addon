@@ -21,7 +21,11 @@ import bpy
 import numpy as np
 
 from . import braas_hpc_renderengine_pref
-import braas_hpc_renderengine_dll
+
+try:
+    from . import braas_hpc_renderengine_dll
+except:
+    import braas_hpc_renderengine_dll
 
 class BRaaSHPCCreateBBoxOperator(bpy.types.Operator):
     bl_idname = "braas_hpc_renderengine.create_bbox"
