@@ -186,7 +186,7 @@ class BRaaSHPCContext:
         #check_gl_error()
 
     def client_close_connection(self):
-        braas_hpc_renderengine_dll.reset()
+        # braas_hpc_renderengine_dll.reset()
         braas_hpc_renderengine_dll.client_close_connection()
         self.client_started = False
 
@@ -671,6 +671,10 @@ class ViewportEngine(Engine):
         # self.render_callback = render_callback_type(self.render_callback)
 
     def start_render(self):
+        # first stop any previous render
+        if self.sync_render_thread:
+            self.stop_render()
+
         print("start_render")
         self.is_finished = False
 
@@ -689,6 +693,8 @@ class ViewportEngine(Engine):
         self.sync_render_thread.join()        
 
         self.braas_hpc_renderengine_context.client_close_connection()
+
+        self.sync_render_thread = None
 
         #self.braas_hpc_renderengine_context = None
         #self.image_filter = None
@@ -807,7 +813,8 @@ class ViewportEngine(Engine):
         #notify_status(f"{e}.\nPlease see logs for more details.", "ERROR")
 
         #bpy.ops.braas_hpc_renderengine.stop_process()
-        #print('Finish _do_sync_render')        
+        #print('Finish _do_sync_render')
+        # bpy.context.space_data.shading.type = 'SOLID'
 
     def sync(self, context, depsgraph):
         
@@ -1030,8 +1037,12 @@ class BRaaSHPCRenderEngine(bpy.types.RenderEngine):
     # RenderEngine; define its internal name, visible name and capabilities.
     bl_idname = "BRAAS_HPC"
     bl_label = "BRaaS-HPC"
+    bl_use_eevee_viewport = True
     bl_use_preview = False
-    bl_use_shading_nodes_custom=False
+    # bl_use_shading_nodes = False
+    bl_use_shading_nodes_custom = False
+    # bl_use_eevee_viewport = False
+    bl_use_gpu_context = True
 
     engine: Engine = None
 
