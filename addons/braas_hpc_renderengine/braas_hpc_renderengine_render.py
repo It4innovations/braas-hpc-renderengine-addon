@@ -71,7 +71,7 @@ class BRaaSHPCServerSettings(bpy.types.PropertyGroup):
         name="Port",
         min=0,
         max=65565,
-        default=7000
+        default=8000
     ) # type: ignore
 
     braas_hpc_renderengine_server_name: bpy.props.StringProperty(
